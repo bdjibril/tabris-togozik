@@ -1,49 +1,49 @@
 [
   {
-    "title": "Mic Flammez",
-    "author": "TogoZik",
+    "name": "Mic Flammez",
+    "genre": "Rap, Afro Pop",
     "image": "images/TOGOZIK-MIC.jpg",
     "popular": true,
     "favorite": false
   },
   {
-    "title": "Kanaa",
-    "author": "TogoZik",
+    "name": "Kanaa",
+    "genre": "Rap",
     "image": "images/TOGOZIK-KANAA.jpg",
     "popular": false,
     "favorite": true
   },
   {
-    "title": "Arlek",
-    "author": "TogoZik",
+    "name": "Arlek",
+    "genre": "Rap",
     "image": "images/TOGOZIK-ARLEK.jpg",
     "popular": false,
     "favorite": true
   },
   {
-    "title": "Combietey",
-    "author": "TogoZik",
+    "name": "Combietey",
+    "genre": "Afro",
     "image": "images/TOGOZIK-COMBIETEY.jpg",
     "popular": false,
     "favorite": true
   },
   {
-    "title": "Dynamo",
-    "author": "TogoZik",
+    "name": "Dynamo",
+    "genre": "TogoZik",
     "image": "images/TOGOZIK-DYNAMO.jpg",
     "popular": false,
     "favorite": true
   },
   {
-    "title": "Kang D Dreamer",
-    "author": "TogoZik",
+    "name": "Kang D Dreamer",
+    "genre": "Afro",
     "image": "images/TOGOZIK-KANG.jpg",
     "popular": false,
     "favorite": true
   },
   {
-    "title": "Phenix",
-    "author": "TogoZik",
+    "name": "Phenix",
+    "genre": "Gospel",
     "image": "images/TOGOZIK-PHENIX.jpg",
     "popular": true,
     "favorite": true

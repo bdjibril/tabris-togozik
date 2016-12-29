@@ -1,4 +1,6 @@
 import { ui, Drawer, PageSelector, Action } from 'tabris';
+import SongsPage from './pages/SongsPage.js';
+import VideosPage from './pages/VideosPage.js';
 import ArtistsPage from './pages/ArtistsPage.js';
 
 import SettingsAction from './actions/SettingsAction.js';
@@ -11,8 +13,8 @@ ui.set({
 
 new Drawer().append(new PageSelector());
 
-new ArtistsPage('Latest Artists', 'images/page_all_books.png', (artist) => true).open();
-new ArtistsPage('Favorite Artists', 'images/page_favorite_books.png', (artist) => artist.favorite);
-new ArtistsPage('Popular Artists', 'images/page_popular_books.png', (artist) => artist.popular);
+new SongsPage('Songs', 'images/ic_library_music_black_24dp.png', (song) => true).open();
+new VideosPage('Videos', 'images/ic_video_library_black_24dp.png', (video) => true);
+new ArtistsPage('Artists', 'images/ic_person_black_24dp.png', (artist) => true);
 
 new SettingsAction();

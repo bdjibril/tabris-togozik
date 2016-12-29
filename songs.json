@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Lebene",
+    "artist": "Mic Flammez",
+    "image": "images/TOGOZIK-MIC.jpg",
+    "link": "http://togozik.com/wp-content/uploads/2016/12/Almok-Ft.-DJ-Arafat-Lébénè.mp3",
+    "popular": true,
+    "favorite": false
+  },
+  {
+    "title": "Shake Your Body",
+    "artist": "Laden",
+    "image": "images/TOGOZIK-MIC.jpg",
+    "link": "http://togozik.com/wp-content/uploads/2016/12/JON-DHO-LADEN-SHAKE-YOUR-BODY.mp3",
+    "popular": true,
+    "favorite": false
+  }
+]

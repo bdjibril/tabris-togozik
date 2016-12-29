@@ -1,9 +1,10 @@
 import { Page, TabFolder, Tab, Composite, Button, TextView, ImageView, CollectionView } from 'tabris';
-import artists from '../../artists.json';
+import songs from '../../songs.json';
 
 var PAGE_MARGIN = 16;
+var audoMedia;
 
-export default class ArtistsPage extends Page {
+export default class SongsPage extends Page {
 
   constructor(title, image, filter) {
     super({
@@ -15,16 +16,16 @@ export default class ArtistsPage extends Page {
   }
 
   _createUI(filter) {
-    createArtistsList(artists.filter(filter)).appendTo(this);
+    createSongsList(songs.filter(filter)).appendTo(this);
   }
 
 }
 
-function createArtistsList(artists) {
+function createSongsList(songs) {
   return new CollectionView({
     layoutData: {left: 0, right: 0, top: 0, bottom: 0},
     itemHeight: 72,
-    items: artists,
+    items: songs,
     initializeCell: function(cell) {
       var imageView = new ImageView({
         layoutData: {left: PAGE_MARGIN, centerY: 0, width: 32, height: 48},
@@ -39,22 +40,31 @@ function createArtistsList(artists) {
         layoutData: {left: 64, right: PAGE_MARGIN, top: [titleTextView, 4]},
         textColor: '#7b7b7b'
       }).appendTo(cell);
-      cell.on('change:item', function(widget, artist) {
-        imageView.set('image', artist.image);
-        titleTextView.set('text', artist.name);
-        authorTextView.set('text', artist.genre);
+      cell.on('change:item', function(widget, song) {
+        imageView.set('image', song.image);
+        titleTextView.set('text', song.title);
+        authorTextView.set('text', song.artist);
       });
     }
   }).on('select', function(target, value) {
-    createArtistPage(value).open();
+    createSongtPage(value).open();
   });
 }
 
-function createArtistPage(artist) {
+function createSongtPage(song) {
+  var audioMedia = new Media(song.link, () => null, () => null);
+
   var page = new Page({
-    title: artist.name
+    title: song.title
   });
-  var detailsComposite = createDetailsView(artist)
+
+  page.on('appear', function() { audioMedia.play(); })
+      .on('disappear', function() { 
+        audioMedia.stop();
+        audioMedia.release()
+       });
+
+  var detailsComposite = createDetailsView(song)
     .set('layoutData', {top: 0, height: 192, left: 0, right: 0})
     .appendTo(page);
   createTabFolder().set({
@@ -67,7 +77,7 @@ function createArtistPage(artist) {
   return page;
 }
 
-function createDetailsView(artist) {
+function createDetailsView(song) {
   var composite = new Composite({
     background: 'white',
     highlightOnTouch: true
@@ -75,20 +85,20 @@ function createDetailsView(artist) {
   new Composite({
     layoutData: {left: 0, right: 0, top: 0, height: 160 + 2 * PAGE_MARGIN}
   }).on('tap', function() {
-    createReadBookPage(artist).open();
+    createReadBookPage(song).open();
   }).appendTo(composite);
   var coverView = new ImageView({
     layoutData: {height: 160, width: 106, left: PAGE_MARGIN, top: PAGE_MARGIN},
-    image: artist.image
+    image: song.image
   }).appendTo(composite);
   var titleTextView = new TextView({
     markupEnabled: true,
-    text: '<b>' + artist.name + '</b>',
+    text: '<b>' + song.title + '</b>',
     layoutData: {left: [coverView, PAGE_MARGIN], top: PAGE_MARGIN, right: PAGE_MARGIN}
   }).appendTo(composite);
   var authorTextView = new TextView({
     layoutData: {left: [coverView, PAGE_MARGIN], top: [titleTextView, PAGE_MARGIN]},
-    text: artist.genre
+    text: song.genre
   }).appendTo(composite);
   new TextView({
     layoutData: {left: [coverView, PAGE_MARGIN], top: [authorTextView, PAGE_MARGIN]},
@@ -101,8 +111,8 @@ function createDetailsView(artist) {
 function createTabFolder() {
   var tabFolder = new TabFolder({tabBarLocation: 'top', paging: true});
   var audioTab = new Tab({title: 'Audio'}).appendTo(tabFolder);
-  createArtistsList(artists).appendTo(audioTab);
+  createSongsList(songs).appendTo(audioTab);
   var videoTab = new Tab({title: 'Video'}).appendTo(tabFolder);
-  createArtistsList(artists).appendTo(videoTab);
+  createSongsList(songs).appendTo(videoTab);
   return tabFolder;
 }

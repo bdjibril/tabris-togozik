@@ -1,9 +1,9 @@
-import { Page, TabFolder, Tab, Composite, Button, TextView, ImageView, CollectionView } from 'tabris';
-import artists from '../../artists.json';
+import { Page, TabFolder, Tab, Composite, Button, TextView, ImageView, CollectionView, Video } from 'tabris';
+import videos from '../../videos.json';
 
 var PAGE_MARGIN = 16;
 
-export default class ArtistsPage extends Page {
+export default class VideosPage extends Page {
 
   constructor(title, image, filter) {
     super({
@@ -15,16 +15,16 @@ export default class ArtistsPage extends Page {
   }
 
   _createUI(filter) {
-    createArtistsList(artists.filter(filter)).appendTo(this);
+    createVideosList(videos.filter(filter)).appendTo(this);
   }
 
 }
 
-function createArtistsList(artists) {
+function createVideosList(videos) {
   return new CollectionView({
     layoutData: {left: 0, right: 0, top: 0, bottom: 0},
     itemHeight: 72,
-    items: artists,
+    items: videos,
     initializeCell: function(cell) {
       var imageView = new ImageView({
         layoutData: {left: PAGE_MARGIN, centerY: 0, width: 32, height: 48},
@@ -39,22 +39,22 @@ function createArtistsList(artists) {
         layoutData: {left: 64, right: PAGE_MARGIN, top: [titleTextView, 4]},
         textColor: '#7b7b7b'
       }).appendTo(cell);
-      cell.on('change:item', function(widget, artist) {
-        imageView.set('image', artist.image);
-        titleTextView.set('text', artist.name);
-        authorTextView.set('text', artist.genre);
+      cell.on('change:item', function(widget, video) {
+        imageView.set('image', video.image);
+        titleTextView.set('text', video.title);
+        authorTextView.set('text', video.artist);
       });
     }
   }).on('select', function(target, value) {
-    createArtistPage(value).open();
+    createVideoPage(value).open();
   });
 }
 
-function createArtistPage(artist) {
+function createVideoPage(video) {
   var page = new Page({
-    title: artist.name
+    title: video.title
   });
-  var detailsComposite = createDetailsView(artist)
+  var detailsComposite = createDetailsView(video)
     .set('layoutData', {top: 0, height: 192, left: 0, right: 0})
     .appendTo(page);
   createTabFolder().set({
@@ -67,42 +67,26 @@ function createArtistPage(artist) {
   return page;
 }
 
-function createDetailsView(artist) {
+function createDetailsView(video) {
   var composite = new Composite({
     background: 'white',
     highlightOnTouch: true
   });
-  new Composite({
-    layoutData: {left: 0, right: 0, top: 0, height: 160 + 2 * PAGE_MARGIN}
-  }).on('tap', function() {
-    createReadBookPage(artist).open();
+
+  var video = new Video({
+    left: 0, top: 0, right: 0, height: 250, background: "black",
+    url: "http://peach.themazzone.com/durian/movies/sintel-1280-stereo.mp4",
+    controlsVisible: true
   }).appendTo(composite);
-  var coverView = new ImageView({
-    layoutData: {height: 160, width: 106, left: PAGE_MARGIN, top: PAGE_MARGIN},
-    image: artist.image
-  }).appendTo(composite);
-  var titleTextView = new TextView({
-    markupEnabled: true,
-    text: '<b>' + artist.name + '</b>',
-    layoutData: {left: [coverView, PAGE_MARGIN], top: PAGE_MARGIN, right: PAGE_MARGIN}
-  }).appendTo(composite);
-  var authorTextView = new TextView({
-    layoutData: {left: [coverView, PAGE_MARGIN], top: [titleTextView, PAGE_MARGIN]},
-    text: artist.genre
-  }).appendTo(composite);
-  new TextView({
-    layoutData: {left: [coverView, PAGE_MARGIN], top: [authorTextView, PAGE_MARGIN]},
-    textColor: 'rgb(102, 153, 0)',
-    text: 'EUR 12,95'
-  }).appendTo(composite);
+
   return composite;
 }
 
 function createTabFolder() {
   var tabFolder = new TabFolder({tabBarLocation: 'top', paging: true});
   var audioTab = new Tab({title: 'Audio'}).appendTo(tabFolder);
-  createArtistsList(artists).appendTo(audioTab);
+  createVideosList(videos).appendTo(audioTab);
   var videoTab = new Tab({title: 'Video'}).appendTo(tabFolder);
-  createArtistsList(artists).appendTo(videoTab);
+  createVideosList(videos).appendTo(videoTab);
   return tabFolder;
 }
