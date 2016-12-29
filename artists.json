@@ -1,0 +1,51 @@
+[
+  {
+    "title": "Mic Flammez",
+    "author": "TogoZik",
+    "image": "images/TOGOZIK-MIC.jpg",
+    "popular": true,
+    "favorite": false
+  },
+  {
+    "title": "Kanaa",
+    "author": "TogoZik",
+    "image": "images/TOGOZIK-KANAA.jpg",
+    "popular": false,
+    "favorite": true
+  },
+  {
+    "title": "Arlek",
+    "author": "TogoZik",
+    "image": "images/TOGOZIK-ARLEK.jpg",
+    "popular": false,
+    "favorite": true
+  },
+  {
+    "title": "Combietey",
+    "author": "TogoZik",
+    "image": "images/TOGOZIK-COMBIETEY.jpg",
+    "popular": false,
+    "favorite": true
+  },
+  {
+    "title": "Dynamo",
+    "author": "TogoZik",
+    "image": "images/TOGOZIK-DYNAMO.jpg",
+    "popular": false,
+    "favorite": true
+  },
+  {
+    "title": "Kang D Dreamer",
+    "author": "TogoZik",
+    "image": "images/TOGOZIK-KANG.jpg",
+    "popular": false,
+    "favorite": true
+  },
+  {
+    "title": "Phenix",
+    "author": "TogoZik",
+    "image": "images/TOGOZIK-PHENIX.jpg",
+    "popular": true,
+    "favorite": true
+  }
+]
