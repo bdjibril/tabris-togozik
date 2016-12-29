@@ -1,4 +1,4 @@
-import { Page, Button, TextView, ImageView, CollectionView } from 'tabris';
+import { Page, TabFolder, Tab, Composite, Button, TextView, ImageView, CollectionView } from 'tabris';
 import artists from '../../artists.json';
 
 var PAGE_MARGIN = 16;
@@ -21,7 +21,7 @@ export default class ArtistsPage extends Page {
 }
 
 function createArtistsList(artists) {
-  return new tabris.CollectionView({
+  return new CollectionView({
     layoutData: {left: 0, right: 0, top: 0, bottom: 0},
     itemHeight: 72,
     items: artists,
@@ -52,7 +52,7 @@ function createArtistsList(artists) {
 
 
 function createArtistPage(artist) {
-  var page = new tabris.Page({
+  var page = new Page({
     title: artist.title
   });
   var detailsComposite = createDetailsView(artist)
@@ -61,7 +61,7 @@ function createArtistPage(artist) {
   createTabFolder().set({
     layoutData: {top: [detailsComposite, 0], left: 0, right: 0, bottom: 0}
   }).appendTo(page);
-  new tabris.TextView({
+  new TextView({
     layoutData: {height: 1, right: 0, left: 0, top: [detailsComposite, 0]},
     background: 'rgba(0, 0, 0, 0.1)'
   }).appendTo(page);
@@ -69,29 +69,29 @@ function createArtistPage(artist) {
 }
 
 function createDetailsView(artist) {
-  var composite = new tabris.Composite({
+  var composite = new Composite({
     background: 'white',
     highlightOnTouch: true
   });
-  new tabris.Composite({
+  new Composite({
     layoutData: {left: 0, right: 0, top: 0, height: 160 + 2 * PAGE_MARGIN}
   }).on('tap', function() {
     createReadBookPage(artist).open();
   }).appendTo(composite);
-  var coverView = new tabris.ImageView({
+  var coverView = new ImageView({
     layoutData: {height: 160, width: 106, left: PAGE_MARGIN, top: PAGE_MARGIN},
     image: artist.image
   }).appendTo(composite);
-  var titleTextView = new tabris.TextView({
+  var titleTextView = new TextView({
     markupEnabled: true,
     text: '<b>' + artist.title + '</b>',
     layoutData: {left: [coverView, PAGE_MARGIN], top: PAGE_MARGIN, right: PAGE_MARGIN}
   }).appendTo(composite);
-  var authorTextView = new tabris.TextView({
+  var authorTextView = new TextView({
     layoutData: {left: [coverView, PAGE_MARGIN], top: [titleTextView, PAGE_MARGIN]},
     text: artist.author
   }).appendTo(composite);
-  new tabris.TextView({
+  new TextView({
     layoutData: {left: [coverView, PAGE_MARGIN], top: [authorTextView, PAGE_MARGIN]},
     textColor: 'rgb(102, 153, 0)',
     text: 'EUR 12,95'
@@ -100,10 +100,10 @@ function createDetailsView(artist) {
 }
 
 function createTabFolder() {
-  var tabFolder = new tabris.TabFolder({tabBarLocation: 'top', paging: true});
-  var audioTab = new tabris.Tab({title: 'Audio'}).appendTo(tabFolder);
+  var tabFolder = new TabFolder({tabBarLocation: 'top', paging: true});
+  var audioTab = new Tab({title: 'Audio'}).appendTo(tabFolder);
   createArtistsList(artists).appendTo(audioTab);
-  var videoTab = new tabris.Tab({title: 'Video'}).appendTo(tabFolder);
+  var videoTab = new Tab({title: 'Video'}).appendTo(tabFolder);
   createArtistsList(artists).appendTo(videoTab);
   return tabFolder;
 }
